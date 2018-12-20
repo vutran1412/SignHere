@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "ava --verbose test/index.test.js"
+    "test": "ava --verbose test/app.test.js"
   },
   "author": "Vu Tran",
   "license": "ISC",

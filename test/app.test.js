@@ -138,7 +138,7 @@ test.cb('6. /block: should return the new block added', (t) => {
         t.hasOwnProperty('body')
         t.hasOwnProperty('time')
         t.hasOwnProperty('previousBlockHash')
-
+        // saves hash in hash.txt
         fs.writeFileSync('./data/hash.txt', response.body.hash)
       })
       .end(t.end)
