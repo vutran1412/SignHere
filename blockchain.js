@@ -1,8 +1,15 @@
+// Import SHA256 from crypto-js module
 const SHA256 = require('crypto-js/sha256')
+// Import Block class
 const Block = require('./block')
+
+// persist blockchain database in the chain folder
 const db = require('level')('./data/chain')
 
+// Blockchain class
 class Blockchain {
+  // If the blockchain is empty a genesis block will be generated, this block will only contain its own
+  // hash, timestamp, and an empty body
   constructor () {
     this.getBlockHeight().then((height) => {
       if (height === -1) {
@@ -16,18 +23,22 @@ class Blockchain {
    * @param {Block} newBlock
    */
   async addBlock (newBlock) {
+    // must first get the current block height
     const height = parseInt(await this.getBlockHeight())
-
+    // block height is incremented and a new timestamp is generated
     newBlock.height = height + 1
     newBlock.time = new Date().getTime().toString().slice(0, -3)
-
+    // If the block isn't a genesis block, it must get the current block's hash and store it in
+    // the new block's previous hash
     if (newBlock.height > 0) {
+      // wait for the promise to resolve before continue
       const prevBlock = await this.getBlock(height)
       newBlock.previousBlockHash = prevBlock.hash
     }
 
+    // generate a new hash using SHA256
     newBlock.hash = SHA256(JSON.stringify(newBlock)).toString()
-
+    // add block to the end of the db
     await this.addBlockToDB(newBlock.height, JSON.stringify(newBlock))
   }
 
