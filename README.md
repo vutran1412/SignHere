@@ -53,3 +53,7 @@ to start the server
 node app.js
 ```
 
+open up postman and make a request to endpoint POST /localhost:8000/requestValidation
+
+<img width="1392" alt="screen shot 2018-12-20 at 12 20 22 pm" src="https://user-images.githubusercontent.com/25469710/50306038-2375c800-045a-11e9-9341-ca43b78ad6a5.png">
+
